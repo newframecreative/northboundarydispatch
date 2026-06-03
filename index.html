@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>North Boundary Dispatch</title>
+<meta name="description" content="North Boundary Dispatch — ambient acoustic soundscapes from Oak Ridge, Tennessee. Debut album 'Sometimes There Are No Words' out now." />
+<link rel="canonical" href="https://northboundarydispatch.com/" />
+<link rel="icon" href="/cover.jpg" />
+<link rel="apple-touch-icon" href="/cover.jpg" />
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="music.musician" />
+<meta property="og:title" content="North Boundary Dispatch" />
+<meta property="og:description" content="Ambient acoustic soundscapes from Oak Ridge, Tennessee. Debut album 'Sometimes There Are No Words' out now." />
+<meta property="og:url" content="https://northboundarydispatch.com/" />
+<meta property="og:image" content="https://northboundarydispatch.com/cover.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="North Boundary Dispatch" />
+<meta name="twitter:description" content="Ambient acoustic soundscapes from Oak Ridge, Tennessee." />
+<meta name="twitter:image" content="https://northboundarydispatch.com/cover.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg:        #0a0c10;
+    --bg-2:      #0d1016;
+    --text:      #c9cdd6;
+    --text-dim:  #6f7682;
+    --text-faint:#474d57;
+    --glow:      #2a3a52;
+    --hair:      rgba(201, 205, 214, 0.10);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ---- atmosphere: drifting glows ---- */
+  .atmosphere {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    background:
+      radial-gradient(60% 50% at 50% 18%, rgba(42,58,82,0.40), transparent 70%),
+      radial-gradient(50% 40% at 20% 80%, rgba(30,40,58,0.30), transparent 70%),
+      radial-gradient(45% 45% at 85% 65%, rgba(34,30,50,0.28), transparent 70%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  }
+  .fog {
+    position: absolute;
+    width: 120vmax; height: 120vmax;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    mix-blend-mode: screen;
+  }
+  .fog.a { background: radial-gradient(circle, rgba(46,64,92,0.55), transparent 60%); top: -30vmax; left: -20vmax; animation: drift1 38s ease-in-out infinite alternate; }
+  .fog.b { background: radial-gradient(circle, rgba(28,36,54,0.55), transparent 60%); bottom: -40vmax; right: -25vmax; animation: drift2 46s ease-in-out infinite alternate; }
+
+  @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(8vmax,6vmax) scale(1.15); } }
+  @keyframes drift2 { from { transform: translate(0,0) scale(1.1); } to { transform: translate(-7vmax,-5vmax) scale(1); } }
+
+  /* ---- film grain ---- */
+  .grain {
+    position: fixed;
+    inset: -50%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainshift 0.6s steps(2) infinite;
+  }
+  @keyframes grainshift {
+    0% { transform: translate(0,0); } 50% { transform: translate(-4%,3%); } 100% { transform: translate(2%,-2%); }
+  }
+
+  /* ---- layout ---- */
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+
+  section { position: relative; }
+
+  /* ---- hero ---- */
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 28px;
+  }
+  .hero .mark {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2.6rem, 8vw, 5.2rem);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    color: #e6e9ef;
+    text-shadow: 0 0 60px rgba(76,104,150,0.45);
+  }
+  .hero .tagline {
+    margin-top: 26px;
+    font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+    letter-spacing: 0.18em;
+    text-transform: lowercase;
+    color: var(--text-dim);
+    font-weight: 300;
+  }
+  .scrollcue {
+    position: absolute;
+    bottom: 34px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    animation: pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+
+  /* ---- generic section ---- */
+  .block { padding: 8vh 0; }
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 22px;
+  }
+  .lede {
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 3.6vw, 2rem);
+    line-height: 1.5;
+    font-weight: 300;
+    color: #dfe3ea;
+  }
+  .lede em { font-style: italic; color: #b7c0d0; }
+  p.body { margin-top: 22px; color: var(--text-dim); font-size: 1.02rem; max-width: 56ch; }
+
+  .rule { height: 1px; background: var(--hair); border: 0; margin: 0 auto; }
+
+  /* ---- album ---- */
+  .album-cover {
+    display: block;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto 44px;
+    aspect-ratio: 1 / 1;
+    border-radius: 6px;
+    border: 1px solid var(--hair);
+    box-shadow:
+      0 30px 80px -20px rgba(0,0,0,0.8),
+      0 0 80px -10px rgba(60,86,128,0.35);
+    transition: box-shadow 1.2s ease, transform 1.2s ease;
+  }
+  .album-cover:hover {
+    box-shadow:
+      0 30px 90px -18px rgba(0,0,0,0.85),
+      0 0 110px -6px rgba(76,104,150,0.5);
+    transform: translateY(-3px);
+  }
+  .album-title {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.9rem, 5vw, 2.8rem);
+    color: #e6e9ef;
+    line-height: 1.15;
+  }
+  .album-meta { margin-top: 12px; font-size: 0.82rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); }
+  .album-desc { margin-top: 22px; color: var(--text-dim); max-width: 54ch; }
+  .album-head { text-align: center; }
+  .album-head .album-desc { margin-left: auto; margin-right: auto; }
+
+  /* ---- streaming links ---- */
+  .links { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; justify-content: center; }
+  .links a {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 13px 22px;
+    border: 1px solid var(--hair);
+    border-radius: 2px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.86rem;
+    letter-spacing: 0.06em;
+    background: rgba(255,255,255,0.015);
+    transition: border-color .5s ease, color .5s ease, background .5s ease, box-shadow .5s ease;
+  }
+  .links a:hover {
+    border-color: rgba(120,150,200,0.4);
+    color: #eef1f6;
+    background: rgba(60,86,128,0.12);
+    box-shadow: 0 0 30px rgba(46,64,92,0.35);
+  }
+  .links a .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.6; }
+
+  /* ---- embed ---- */
+  .embed { margin-top: 40px; border-radius: 12px; overflow: hidden; border: 1px solid var(--hair); }
+  .embed iframe { display: block; width: 100%; border: 0; }
+  .embed-placeholder {
+    padding: 28px;
+    text-align: center;
+    color: var(--text-faint);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    background: rgba(255,255,255,0.02);
+  }
+
+  /* ---- tracklist ---- */
+  .tracklist { margin-top: 46px; list-style: none; }
+  .tracklist li {
+    display: flex; align-items: baseline; gap: 16px;
+    padding: 13px 0;
+    border-top: 1px solid var(--hair);
+    color: var(--text-dim);
+    font-size: 0.98rem;
+  }
+  .tracklist li:last-child { border-bottom: 1px solid var(--hair); }
+  .tracklist .num { font-size: 0.72rem; color: var(--text-faint); min-width: 22px; letter-spacing: 0.05em; }
+  .tracklist .name { flex: 1; }
+  .tracklist .len { font-size: 0.78rem; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+
+  /* ---- coming soon ---- */
+  .coming {
+    text-align: center;
+    padding: 16vh 0;
+  }
+  .coming .note {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.3rem, 4vw, 1.9rem);
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+    opacity: 0.9;
+  }
+  .coming .note::before, .coming .note::after { content: "~"; color: var(--text-faint); margin: 0 0.5em; }
+
+  /* ---- footer ---- */
+  footer {
+    text-align: center;
+    padding: 7vh 28px 9vh;
+    border-top: 1px solid var(--hair);
+  }
+  footer .name {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+  }
+  footer .place { margin-top: 10px; font-size: 0.74rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--text-faint); }
+  footer .mini-links { margin-top: 22px; display: flex; gap: 20px; justify-content: center; }
+  footer .mini-links a { color: var(--text-faint); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.1em; transition: color .4s ease; }
+  footer .mini-links a:hover { color: var(--text); }
+
+  /* ---- scroll reveal ---- */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 1.6s ease, transform 1.6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fog, .grain { animation: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="atmosphere">
+  <div class="fog a"></div>
+  <div class="fog b"></div>
+</div>
+<div class="grain"></div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <h1 class="mark">North Boundary<br />Dispatch</h1>
+  <p class="tagline">ambient transmissions &middot; oak ridge, tennessee</p>
+  <div class="scrollcue">scroll</div>
+</header>
+
+<!-- ============ ABOUT ============ -->
+<section class="block">
+  <div class="wrap reveal">
+    <p class="eyebrow">The Project</p>
+    <p class="lede">Ambient acoustic soundscapes, dappled with subtle electronic touches &mdash; <em>music for early mornings, long drives, and the quiet space between words.</em></p>
+    <p class="body">North Boundary Dispatch is an ambient project from Oak Ridge, Tennessee. Guitar and field-recording quiet, slowly unfolding &mdash; haunting, melancholy, and unhurried. Pieces built to sit beneath the day and color it from underneath.</p>
+  </div>
+</section>
+
+<div class="wrap"><hr class="rule" /></div>
+
+<!-- ============ ALBUM ============ -->
+<section class="block">
+  <div class="wrap reveal">
+    <div class="album-head">
+      <img class="album-cover" src="/cover.jpg" width="1200" height="1200"
+           alt="Sometimes There Are No Words — album cover: a misty Smoky Mountains ridgeline framed by evergreens"
+           loading="lazy" decoding="async" />
+      <p class="eyebrow">Debut Album</p>
+      <h2 class="album-title">Sometimes There Are No Words</h2>
+      <p class="album-meta">Eleven pieces &middot; Released February 2026</p>
+      <p class="album-desc">The first transmission. Eleven slow movements of ambient and neo-classical quiet &mdash; a record for the hours when language falls short.</p>
+    </div>
+
+    <!-- ============================================================
+         STREAMING LINKS
+         Bandcamp is live. Replace the two TODO hrefs below with the
+         real Spotify and Apple Music album URLs when ready.
+         ============================================================ -->
+    <div class="links">
+      <a href="https://open.spotify.com/album/7JunnbA9D5QNPXhtbjVuxd" target="_blank" rel="noopener">
+        <span class="dot"></span> Spotify
+      </a>
+      <a href="https://music.apple.com/us/album/sometimes-there-are-no-words/1879273835" target="_blank" rel="noopener">
+        <span class="dot"></span> Apple Music
+      </a>
+      <a href="https://northboundarydispatch.bandcamp.com/album/sometimes-there-are-no-words" target="_blank" rel="noopener">
+        <span class="dot"></span> Bandcamp
+      </a>
+    </div>
+
+    <!-- ============================================================
+         SPOTIFY EMBED
+         Replace ALBUM_ID below with the album's Spotify ID, e.g.
+         src="https://open.spotify.com/embed/album/XXXXXXXX?theme=0"
+         Then delete the .embed-placeholder div.
+         ============================================================ -->
+    <div class="embed">
+      <iframe src="https://open.spotify.com/embed/album/7JunnbA9D5QNPXhtbjVuxd?utm_source=generator&theme=0"
+              height="380" loading="lazy"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+    </div>
+
+    <ol class="tracklist">
+      <li><span class="num">01</span><span class="name">You Can Only Move Forward From Here</span><span class="len">4:16</span></li>
+      <li><span class="num">02</span><span class="name">Sometimes There Are No Words</span><span class="len">2:27</span></li>
+      <li><span class="num">03</span><span class="name">Boundary Trail, October Morning</span><span class="len">2:10</span></li>
+      <li><span class="num">04</span><span class="name">Driving Away</span><span class="len">3:44</span></li>
+      <li><span class="num">05</span><span class="name">Her Empty Room</span><span class="len">2:14</span></li>
+      <li><span class="num">06</span><span class="name">Light Through The Trees</span><span class="len">2:50</span></li>
+      <li><span class="num">07</span><span class="name">The Water Tower</span><span class="len">4:20</span></li>
+      <li><span class="num">08</span><span class="name">First Days of Autumn</span><span class="len">3:27</span></li>
+      <li><span class="num">09</span><span class="name">Black Sand Beach</span><span class="len">3:03</span></li>
+      <li><span class="num">10</span><span class="name">I Think We're Going To Be Okay</span><span class="len">3:07</span></li>
+      <li><span class="num">11</span><span class="name">Through The Wide World</span><span class="len">3:15</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ COMING SOON ============ -->
+<section class="coming">
+  <div class="wrap reveal">
+    <p class="note">new transmission arriving soon</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <p class="name">North Boundary Dispatch</p>
+  <p class="place">Oak Ridge, Tennessee</p>
+  <div class="mini-links">
+    <a href="https://open.spotify.com/album/7JunnbA9D5QNPXhtbjVuxd" target="_blank" rel="noopener">Spotify</a>
+    <a href="https://music.apple.com/us/album/sometimes-there-are-no-words/1879273835" target="_blank" rel="noopener">Apple Music</a>
+    <a href="https://northboundarydispatch.bandcamp.com" target="_blank" rel="noopener">Bandcamp</a>
+  </div>
+</footer>
+
+<script>
+  // Slow fade-in on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
+
+</body>
+</html>
